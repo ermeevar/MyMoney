@@ -1,6 +1,6 @@
 using System;
 
-namespace Calculator.Entities.Http;
+namespace Models.Http;
 
 /// <summary>
 /// Информация по запросу

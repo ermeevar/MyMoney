@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-using Calculator.Entities.Http;
+using Models.Http;
 using Calculator.Services.Abstractions;
 using Calculator.Services.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using static Calculator.Start.CastleWindsorConfiguration.Container;
+using CalculatorUrl = Models.Urls.Calculator.CalculatorUrl;
 
 namespace Calculator.Controllers;
 
@@ -11,11 +12,11 @@ namespace Calculator.Controllers;
 /// Контроллер расчета отпускных начислений
 /// </summary>
 [ApiController]
-[Route("vacationpays")]
+[Route(CalculatorUrl.VacationPays)]
 public class VacationPaysController
 {
-    private ILogger<VacationPaysService> _logger;
-    public IVacationPaysService VacationPaysService { get; }
+    private readonly ILogger<VacationPaysService> _logger;
+    private IVacationPaysService VacationPaysService { get; }
 
     public VacationPaysController(ILogger<VacationPaysService> logger)
     {
@@ -30,7 +31,7 @@ public class VacationPaysController
     /// <param name="countDaysOfVacation">Количество дней в отпуске</param>
     /// <returns>Отпускные начисления</returns>
     [HttpGet]
-    [Route("default")]
+    [Route(CalculatorUrl.VacationPayByCountDay)]
     public Result GetDefaultVacationPays([Required] double wage, [Required] int countDaysOfVacation)
     {
         try
@@ -57,7 +58,7 @@ public class VacationPaysController
     /// <param name="digital">Количество цифр после запятой, с которыми надо округлять число</param>
     /// <returns>Отпускные начисления</returns>
     [HttpGet]
-    [Route("default/round")]
+    [Route(CalculatorUrl.VacationPayByCountDayRound)]
     public Result GetRoundedDefaultVacationPays([Required] double wage, [Required] int countDaysOfVacation, [Required] int digital)
     {
         try

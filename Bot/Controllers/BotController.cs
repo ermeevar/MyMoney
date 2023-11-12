@@ -1,6 +1,7 @@
 using Bot.Commands.Abstractions;
 using Bot.Data;
 using Microsoft.AspNetCore.Mvc;
+using Models.Urls.Bot;
 using Newtonsoft.Json;
 using Telegram.Bot.Types;
 
@@ -9,7 +10,7 @@ namespace Bot.Controllers;
 /// <summary>
 /// Контроллер обработки сообщений
 /// </summary>
-[ApiController, Route(BotClientConventions.ApiMessageRoute)]
+[ApiController, Route($"{BotUrl.Api}/{BotUrl.ApiMessage}")]
 public class BotController : ControllerBase
 {
     /// <summary>
@@ -26,7 +27,7 @@ public class BotController : ControllerBase
     /// Обработать сообщение
     /// </summary>
     /// <param name="update">Оболочка информации отправляемая с Telegram бота</param>
-    [HttpPost, Route(BotClientConventions.ApiMessageUpdatePostfix)]
+    [HttpPost, Route(BotUrl.ApiMessageUpdate)]
     public async Task<IActionResult> Update([FromBody]object update)
     {
         var deserializedData = JsonConvert.DeserializeObject<Update>(update.ToString() ?? string.Empty);

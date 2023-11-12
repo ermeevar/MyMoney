@@ -4,7 +4,6 @@ using Bot.Commands.Implementations;
 using Bot.Commands.Implementations.Calculator;
 using Bot.Commands.Implementations.DataCreator;
 using Bot.Commands.Implementations.Lists;
-using Bot.Controllers;
 using Bot.Data;
 
 namespace Bot.Start;
@@ -34,12 +33,16 @@ public class StartUpConfiguration
         app.UseSwaggerUI();
         app.UseHttpsRedirection();
         app.UseRouting();
-        serviceProvider.GetRequiredService<BotClient>().GetCurrentBot().Wait();
-        CommandsData.Commands = serviceProvider.GetServices<BaseCommand>().ToList();
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
         });
+        
+        // Инициализируем клиента бота
+        serviceProvider.GetRequiredService<BotClient>().GetCurrentBot().Wait();
+        
+        // Сохраняем все комманды приложения в единную точку
+        CommandsData.Commands = serviceProvider.GetServices<BaseCommand>().ToList();
     }
 
     /// <summary>

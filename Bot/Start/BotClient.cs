@@ -1,5 +1,6 @@
 using Bot.Data;
 using Models.Extensions;
+using Models.Urls.Bot;
 using Telegram.Bot;
 
 namespace Bot.Start;
@@ -34,9 +35,7 @@ public class BotClient
             
             _botClient = new TelegramBotClient(_configuration["Token"] ?? string.Empty);
             await _botClient.DeleteWebhookAsync();
-            var webhook = string.Concat(_configuration["Url"], 
-                BotClientConventions.UrlDelimiter, BotClientConventions.ApiMessageRoute, 
-                BotClientConventions.UrlDelimiter, BotClientConventions.ApiMessageUpdatePostfix);
+            var webhook = $"{_configuration["Url"]}/{BotUrl.Api}/{BotUrl.ApiMessage}/{BotUrl.ApiMessageUpdate}";
             await _botClient.SetWebhookAsync(webhook);
         }
           
