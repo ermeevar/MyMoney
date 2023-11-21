@@ -3,8 +3,10 @@ using Bot.Commands.Abstractions;
 using Bot.Commands.Implementations;
 using Bot.Commands.Implementations.Calculator;
 using Bot.Commands.Implementations.DataCreator;
+using Bot.Commands.Implementations.DataCreator.SalaryCreator;
 using Bot.Commands.Implementations.Lists;
 using Bot.Data;
+using Bot.MembershipProvider;
 
 namespace Bot.Start;
 
@@ -51,21 +53,19 @@ public class StartUpConfiguration
     private static void SetImplementations(IServiceCollection services)
     {
         services.AddSingleton<BotClient>();
+        services.AddSingleton<HostPoint>();
         services.AddSingleton<ICommandExecutor, CommandExecutor>();
         
         services.AddSingleton<BaseCommand, UnknownCommand>();
-        services.AddSingleton<BaseCommand, StartCommand>();  
-        
+        services.AddSingleton<BaseCommand, StartCommand>();
         services.AddSingleton<BaseCommand, ListsCommand>();
         services.AddSingleton<BaseCommand, DataCreatorCommand>();
         services.AddSingleton<BaseCommand, CalculatorCommand>();
-        
         services.AddSingleton<BaseCommand, SalaryListCommand>();
         services.AddSingleton<BaseCommand, PayslipListCommand>();
-        
         services.AddSingleton<BaseCommand, SalaryCreatorCommand>();
         services.AddSingleton<BaseCommand, PayslipImportCommand>();
-        
         services.AddSingleton<BaseCommand, VacationPaysCalculatorCommand>();
+        services.AddSingleton<BaseCommand, AddSalaryCommand>();
     }
 }

@@ -1,5 +1,5 @@
 using Bot.Commands.Abstractions;
-using Bot.Commands.Implementations.Lists;
+using Bot.Commands.Implementations.DataCreator.SalaryCreator;
 using Bot.Extensions;
 using Bot.Start;
 using Telegram.Bot;

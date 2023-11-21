@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Host.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using Models.Http;
 using Models.Urls.Host;
 
 namespace Host.Controllers.Api;
@@ -36,11 +37,11 @@ public class DataCreatorController : ControllerBase
     /// </summary>
     [HttpPost]
     [Route(HostUrl.SalaryDataCreator)]
-    public async Task CreateSalary([Required] DateTime date, [Required] double sum)
+    public async Task CreateSalary([Required] SalaryData data)
     {
         try
         {
-            await _salaryService.CreateSalary(date, sum);
+            await _salaryService.CreateSalary(data.Date, data.Sum);
         }
         catch (Exception ex)
         {

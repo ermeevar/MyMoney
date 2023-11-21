@@ -18,15 +18,33 @@ public class CommandExecutor : ICommandExecutor
     /// <inheritdoc/>
     public async Task ExecuteAsync(Update update)
     {
-         if(string.IsNullOrEmpty(update.Message?.Text))
-             await _commands.First(x => x.GetType() == typeof(UnknownCommand)).ExecuteAsync(update);
+        // Проверяем на пустышку
+        if (string.IsNullOrEmpty(update.Message?.Text))
+        {
+            await _commands.First(x => x.GetType() == typeof(UnknownCommand)).ExecuteAsync(update);
+            return;
+        }
 
-         var currentCommand = _commands
-             .FirstOrDefault(x => x.Key == update.Message!.Text || x.Name == update.Message!.Text);
-         
-         if(currentCommand == null)
-             await _commands!.First(x => x.GetType() == typeof(UnknownCommand)).ExecuteAsync(update);
-         
-         await currentCommand!.ExecuteAsync(update);
+        // Проверяем на колбэк
+        var operations = CommandsData.UserOperations
+            .Where(x => x.Key == update.Message!.Chat.Id).ToArray();
+        if (operations.Any())
+        {
+            await _commands.First(x => x.Key == operations.First().Value).ExecuteAsync(update);
+            return;
+        }
+
+        // Находим нужную комманду
+        var currentCommand = _commands
+            .FirstOrDefault(x => x.Key == update.Message!.Text || x.Name == update.Message!.Text);
+        // Проверка на вшивую команду
+        if (currentCommand == null)
+        {
+            await _commands.First(x => x.GetType() == typeof(UnknownCommand)).ExecuteAsync(update);
+            return;
+        }
+        
+        await currentCommand.ExecuteAsync(update);
+            
     }
 }

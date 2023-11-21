@@ -32,11 +32,7 @@ public class SalaryService : ISalaryService
 
     /// <inheritdoc/>
     public IEnumerable<Salary> GetSalariesByLastYear()
-    {
-        var nowDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-        var yearAgoDate = new DateTime(nowDate.AddMonths(-12).Year, nowDate.AddMonths(-12).Month, 1);
-        return GetSalaries().Where(x => x.Date.Date >= yearAgoDate.Date && x.Date.Date <= nowDate.Date);
-    }
+        => GetSalaries().OrderByDescending(x => x.Date).Take(12);
 
     /// <inheritdoc/>
     public async Task CreateSalary(DateTime date, double sum)

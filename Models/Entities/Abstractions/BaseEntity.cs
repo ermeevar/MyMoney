@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Models.Entities.Abstractions;
 
@@ -11,5 +12,6 @@ public abstract class BaseEntity
     /// Уникальный идентификатор сущности
     /// </summary>
     [Column("id")]
+    [JsonPropertyName("id")]
     public virtual long Id { get; set; }
 }
