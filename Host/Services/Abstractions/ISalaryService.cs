@@ -23,4 +23,11 @@ public interface ISalaryService
     /// <param name="date">Дата заработной платы</param>
     /// <param name="sum">Сумма</param>
     Task CreateSalary(DateTime date, double sum);
+
+    /// <summary>
+    /// Рассчитать отпусные начисления
+    /// </summary>
+    /// <param name="days">Количество дней отпуска</param>
+    /// <returns>Сумма отпускных начислений</returns>
+    Task<double> CalcVacationPays(int days);
 }

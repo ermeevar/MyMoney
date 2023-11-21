@@ -30,50 +30,48 @@ public class VacationPaysController
     /// <param name="wage">Заработная плата</param>
     /// <param name="countDaysOfVacation">Количество дней в отпуске</param>
     /// <returns>Отпускные начисления</returns>
-    [HttpGet]
+    [HttpPost]
     [Route(CalculatorUrl.VacationPayByCountDay)]
-    public Result GetDefaultVacationPays([Required] double wage, [Required] int countDaysOfVacation)
+    public double GetDefaultVacationPays([Required] double wage, [Required] int countDaysOfVacation)
     {
         try
         {
-            return Result.Create(VacationPaysService.CalculateDefaultPaysByVacationDays(wage, countDaysOfVacation));
+            return VacationPaysService.CalculateDefaultPaysByVacationDays(wage, countDaysOfVacation);
         }
         catch (ValidationException ex)
         {
             _logger.LogError($"Возникла ошибка при вызове метода {nameof(GetDefaultVacationPays)}: {ex.Message}");
-            return Result.Create(null, false, ex.Message);
+            throw new BadHttpRequestException(ex.Message);
         }
         catch (Exception ex)
         {
             _logger.LogError($"Возникла ошибка при вызове метода {nameof(GetDefaultVacationPays)}: {ex.Message}");
-            return Result.Create(null, false, "Возникла ошибка при расчете отпускных начислений");
+            throw new BadHttpRequestException("Возникла ошибка при расчете отпускных начислений");
         }
     }
 
     /// <summary>
     /// Расчитать примерные отпускные начисления по количеству дней отпуска и округлить
     /// </summary>
-    /// <param name="wage">Заработная плата</param>
-    /// <param name="countDaysOfVacation">Количество дней в отпуске</param>
-    /// <param name="digital">Количество цифр после запятой, с которыми надо округлять число</param>
+    /// <param name="data">Данные</param>
     /// <returns>Отпускные начисления</returns>
-    [HttpGet]
+    [HttpPost]
     [Route(CalculatorUrl.VacationPayByCountDayRound)]
-    public Result GetRoundedDefaultVacationPays([Required] double wage, [Required] int countDaysOfVacation, [Required] int digital)
+    public double GetRoundedDefaultVacationPays([Required] VacationPaysData data)
     {
         try
         {
-            return Result.Create(VacationPaysService.GetRoundedDefaultVacationPays(wage, countDaysOfVacation, digital));
+            return VacationPaysService.GetRoundedDefaultVacationPays(data.Wage, data.Days, data.Round);
         }
         catch (ValidationException ex)
         {
             _logger.LogError($"Возникла ошибка при вызове метода {nameof(GetRoundedDefaultVacationPays)}: {ex.Message}");
-            return Result.Create(null, false, ex.Message);
+            throw new BadHttpRequestException(ex.Message);
         }
         catch (Exception ex)
         {
             _logger.LogError($"Возникла ошибка при вызове метода {nameof(GetRoundedDefaultVacationPays)}: {ex.Message}");
-            return Result.Create(null!, false, "Возникла ошибка при расчете отпускных начислений");
+            throw new BadHttpRequestException("Возникла ошибка при расчете отпускных начислений");
         }
     }
 }

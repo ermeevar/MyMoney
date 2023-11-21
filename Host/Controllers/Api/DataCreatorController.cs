@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Host.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using Models.Http;
 using Models.Urls.Host;
 
 namespace Host.Controllers.Api;
@@ -37,17 +36,16 @@ public class DataCreatorController : ControllerBase
     /// </summary>
     [HttpPost]
     [Route(HostUrl.SalaryDataCreator)]
-    public async Task<Result> CreateSalary([Required] DateTime date, [Required] double sum)
+    public async Task CreateSalary([Required] DateTime date, [Required] double sum)
     {
         try
         {
             await _salaryService.CreateSalary(date, sum);
-            return Result.Create(new object());
         }
         catch (Exception ex)
         {
             _logger.LogError($"Возникла ошибка при вызове метода {nameof(CreateSalary)}: {ex.Message}");
-            return Result.Create(null ?? new object(), false, "Возникла ошибка при попытке добавлении заработной платы");
+            throw new BadHttpRequestException("Возникла ошибка при попытке добавлении заработной платы");
         }
     }
 }

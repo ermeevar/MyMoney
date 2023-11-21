@@ -1,4 +1,5 @@
 using Host.Database.Configuration;
+using Host.MembershipProviders;
 using Host.Services.Abstractions;
 using Host.Services.Implementetions;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +58,7 @@ public class StartUpConfiguration
     /// </summary>
     private static void SetImplementations(IServiceCollection services)
     {
+        services.AddSingleton<CalculatorPoint>();
         services.AddSingleton<ISalaryService, SalaryService>();
     }
 }

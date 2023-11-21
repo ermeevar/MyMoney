@@ -1,6 +1,6 @@
 using Host.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using Models.Http;
+using Models.Entities;
 using Models.Urls.Host;
 
 namespace Host.Controllers.Api;
@@ -36,21 +36,16 @@ public class ListController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route(HostUrl.SalaryList)]
-    public Task<Result> GetSalariesByLastYear()
+    public IEnumerable<Salary> GetSalariesByLastYear()
     {
         try
         {
-            var salaries = _salaryService.GetSalariesByLastYear();
-            var message = string.Empty;
-            if (!salaries?.Any() ?? true)
-                message = "Список данных по заработной плате не найдены";
-            
-            return Task.FromResult(Result.Create(salaries ?? new object(), message: message));
+            return _salaryService.GetSalariesByLastYear();
         }
         catch (Exception ex)
         {
             _logger.LogError($"Возникла ошибка при вызове метода {nameof(GetSalariesByLastYear)}: {ex.Message}");
-            return Task.FromResult(Result.Create(null ?? new object(), false, "Возникла ошибка при получении данных по заработной плате"));
+            throw new BadHttpRequestException("Возникла ошибка при получении данных по заработной плате");
         }
     }
 }

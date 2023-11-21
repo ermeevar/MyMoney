@@ -12,16 +12,13 @@
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0-rc.2.23479.6" />
         <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="8.0.0-rc.2.23479.6" />
         <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.0-rc.2.23479.6" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="NLog" Version="5.2.5" />
         <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.5" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Database\Mappings" />
-      <Folder Include="Database\Scripts" />
-    </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Models\Models.csproj" />

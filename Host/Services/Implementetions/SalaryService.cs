@@ -1,5 +1,7 @@
 using Host.Database.Configuration;
+using Host.MembershipProviders;
 using Host.Services.Abstractions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Models.Entities;
 
@@ -12,11 +14,17 @@ public class SalaryService : ISalaryService
     /// БД
     /// </summary>
     private readonly DataContext _database;
-    
+
+    private readonly CalculatorPoint _calculator;
+
     /// <summary>
     /// Инициализация данных
     /// </summary>
-    public SalaryService(DataContext database) => _database = database;
+    public SalaryService(DataContext database, CalculatorPoint calculator)
+    {
+        _database = database;
+        _calculator = calculator;
+    }
     
     /// <inheritdoc/>
     public IEnumerable<Salary> GetSalaries()
@@ -53,5 +61,12 @@ public class SalaryService : ISalaryService
         }
 
         await _database.SaveChangesAsync();
+    }
+
+    /// <inheritdoc/>
+    public async Task<double> CalcVacationPays(int days)
+    {
+        var lastSalary = await _database.Salaries.OrderByDescending(x => x.Date).FirstAsync();
+        return await _calculator.CalcVacationPays(days, lastSalary.Sum);
     }
 }
