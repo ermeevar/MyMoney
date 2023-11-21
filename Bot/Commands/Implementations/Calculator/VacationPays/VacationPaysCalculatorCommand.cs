@@ -1,8 +1,12 @@
 using Bot.Commands.Abstractions;
+using Bot.Commands.Implementations.DataCreator.SalaryCreator;
+using Bot.Data;
 using Bot.Start;
+using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
-namespace Bot.Commands.Implementations.Calculator;
+namespace Bot.Commands.Implementations.Calculator.VacationPays;
 
 /// <summary>
 /// Комманда расчета отпускных начислений
@@ -19,8 +23,12 @@ public class VacationPaysCalculatorCommand : BaseCommand
     public VacationPaysCalculatorCommand(BotClient telegramBot) : base(telegramBot) { }
     
     /// <inheritdoc/>
-    public override Task ExecuteAsync(Update update)
+    public override async Task ExecuteAsync(Update update)
     {
-        throw new NotImplementedException();
+        await CurrentClient.SendTextMessageAsync(update.Message!.Chat.Id, 
+            "Введите количество дней отпуска");
+
+        var nextCommandKey = GetCommand<CalcPaysCommand>().Key;
+        CommandsData.UserOperations.Add(KeyValuePair.Create(update.Message!.Chat.Id, nextCommandKey));
     }
 }

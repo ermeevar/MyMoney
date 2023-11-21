@@ -2,6 +2,7 @@ using Bot.Commands;
 using Bot.Commands.Abstractions;
 using Bot.Commands.Implementations;
 using Bot.Commands.Implementations.Calculator;
+using Bot.Commands.Implementations.Calculator.VacationPays;
 using Bot.Commands.Implementations.DataCreator;
 using Bot.Commands.Implementations.DataCreator.SalaryCreator;
 using Bot.Commands.Implementations.Lists;
@@ -67,5 +68,6 @@ public class StartUpConfiguration
         services.AddSingleton<BaseCommand, PayslipImportCommand>();
         services.AddSingleton<BaseCommand, VacationPaysCalculatorCommand>();
         services.AddSingleton<BaseCommand, AddSalaryCommand>();
+        services.AddSingleton<BaseCommand, CalcPaysCommand>();
     }
 }

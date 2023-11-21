@@ -1,5 +1,4 @@
 using Bot.Commands.Abstractions;
-using Bot.Data;
 using Microsoft.AspNetCore.Mvc;
 using Models.Urls.Bot;
 using Newtonsoft.Json;
@@ -32,7 +31,7 @@ public class BotController : ControllerBase
     {
         var deserializedData = JsonConvert.DeserializeObject<Update>(update.ToString() ?? string.Empty);
 
-        if (deserializedData?.Message?.Chat is null && deserializedData?.CallbackQuery == null)
+        if (deserializedData?.Message?.Chat is null)
             return Ok();
         
         try

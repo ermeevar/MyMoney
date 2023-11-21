@@ -49,4 +49,22 @@ public class HostPoint
         if (!response.IsSuccessStatusCode)
             throw new Exception(response.ReasonPhrase);
     }
+    
+    /// <summary>
+    /// Рассчитать отпускные начисления
+    /// </summary>
+    /// <param name="days">Количетсво дней отпуска</param>
+    /// <returns>Сумма начислений</returns>
+    public async Task<double> CalcVacationPays(int days)
+    {
+        var method = $"{_rootPath}/{HostUrl.Api}/{HostUrl.Calculator}/{HostUrl.CalcVacationPays}";
+        var response = await _client.PutAsync(new Uri(method), 
+            JsonContent.Create(new VacationPaysCalcData{ Days = days })).ConfigureAwait(false);
+
+        if (!response.IsSuccessStatusCode)
+            throw new Exception(response.ReasonPhrase);
+        
+        await using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+        return await JsonSerializer.DeserializeAsync<double>(stream).ConfigureAwait(false);
+    }
 }

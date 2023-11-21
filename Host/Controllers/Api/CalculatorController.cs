@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Host.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using Models.Http;
 using Models.Urls.Host;
 
 namespace Host.Controllers.Api;
@@ -34,13 +35,13 @@ public class CalculatorController
     /// <summary>
     /// Рассчитать отпускные начисления
     /// </summary>
-    [HttpGet]
+    [HttpPut]
     [Route(HostUrl.CalcVacationPays)]
-    public async Task<double> CalcVacationPays([Required] int days)
+    public async Task<double> CalcVacationPays([Required] VacationPaysCalcData data)
     {
         try
         {
-            return await _salaryService.CalcVacationPays(days);
+            return await _salaryService.CalcVacationPays(data.Days);
         }
         catch (Exception ex)
         {
