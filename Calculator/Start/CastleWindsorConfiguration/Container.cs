@@ -15,5 +15,6 @@ public static class Container
     /// <summary>
     /// Инициализация текущего коонтейнера с инсталяцией модулей
     /// </summary>
-    static Container() => CurrentContainer = new WindsorContainer().Install(new ContainerInstaller());
+    static Container() => 
+        CurrentContainer = new WindsorContainer().Install(new ContainerInstaller());
 }

@@ -1,4 +1,5 @@
 using Bot.Commands.Abstractions;
+using Bot.Commands.Implementations.Calculator.VacationPays;
 using Bot.Commands.Implementations.DataCreator;
 using Bot.Extensions;
 using Bot.Start;
