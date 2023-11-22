@@ -2,6 +2,7 @@ using Bot.Commands.Abstractions;
 using Bot.Commands.Implementations;
 using Bot.Data;
 using Telegram.Bot.Types;
+using Document = System.Reflection.Metadata.Document;
 
 namespace Bot.Commands;
 
@@ -19,7 +20,7 @@ public class CommandExecutor : ICommandExecutor
     public async Task ExecuteAsync(Update update)
     {
         // Проверяем на пустышку
-        if (string.IsNullOrEmpty(update.Message?.Text))
+        if (string.IsNullOrEmpty(update.Message?.Text) && update.Message!.Document is null)
         {
             await _commands.First(x => x.GetType() == typeof(UnknownCommand)).ExecuteAsync(update);
             return;
