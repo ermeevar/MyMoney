@@ -18,7 +18,7 @@ public class CalculatorCommand : BaseCommand
     public override string Key => "calc";
 
     /// <inheritdoc/>
-    public override string Name => "Рассчитать данные";
+    public override string Name => "🧮 Рассчитать данные";
     
     /// <inheritdoc/>
     public CalculatorCommand(BotClient telegramBot) : base(telegramBot) { }
@@ -32,6 +32,7 @@ public class CalculatorCommand : BaseCommand
     internal override IReplyMarkup GetButtons()
         => new ReplyKeyboardMarkup(new List<List<KeyboardButton>>
         {
+            new() { GetCommand<VacationDaysCommand>().ToButton() },
             new() { GetCommand<VacationPaysCalculatorCommand>().ToButton() },
             new() { GetCommand<StartCommand>().ToButton() }
         });

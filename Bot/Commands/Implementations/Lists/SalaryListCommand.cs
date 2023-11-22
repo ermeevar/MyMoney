@@ -20,7 +20,7 @@ public class SalaryListCommand : BaseCommand
     public override string Key => "salarylist";
     
     /// <inheritdoc/>
-    public override string Name => "Получить список зарплаты за год";
+    public override string Name => "💸 Получить список зарплаты за год";
 
     /// <inheritdoc/>
     public SalaryListCommand(BotClient telegramBot, HostPoint host) : base(telegramBot)
@@ -29,8 +29,9 @@ public class SalaryListCommand : BaseCommand
     /// <inheritdoc/>
     public override async Task ExecuteAsync(Update update)
     {
-        var salaries = (await _host.GetSalaryForLastYear()).ToList();
-        var message = salaries.Aggregate(string.Empty, (current, salary) 
+        var salaries = (await _host.GetSalaryForLastYear(update.Message!.Chat.Id)).ToList();
+        var message = "Ваша начисленная заработная плата по месяцам составляет 🌚\n\n";
+        message += salaries.Aggregate(string.Empty, (current, salary) 
             => current + $"{salary.Date.ToShortDateString()} — <b>{salary.Sum}</b> \n");
         
         await CurrentClient.SendTextMessageAsync(update.Message!.Chat.Id, message, 

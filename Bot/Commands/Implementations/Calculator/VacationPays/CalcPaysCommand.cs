@@ -46,7 +46,7 @@ public class CalcPaysCommand : BaseCommand
             return;
         }
 
-        var pays = await _host.CalcVacationPays(days);
+        var pays = await _host.CalcVacationPays(days, update.Message!.Chat.Id);
         
         await CurrentClient.SendTextMessageAsync(update.Message!.Chat.Id, 
             $"Отпускные начисления за {days} дней составит: <b>{pays} руб.</b>", 

@@ -50,7 +50,7 @@ public class AddSalaryCommand : BaseCommand
             return;
         }
 
-        await _host.CreateSalary(date, sum);
+        await _host.CreateSalary(date, sum, update.Message!.Chat.Id);
         
         await CurrentClient.SendTextMessageAsync(update.Message!.Chat.Id, 
             "Данные успешно занесены в таблицу :3", replyMarkup:GetButtons());

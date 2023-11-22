@@ -36,4 +36,23 @@ public class CalculatorPoint
         await using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
         return await JsonSerializer.DeserializeAsync<double>(stream).ConfigureAwait(false);
     }
+
+    /// <summary>
+    /// Рассчитать отпускные дни
+    /// </summary>
+    /// <param name="countedDays">Накопленные дни</param>
+    /// <param name="uncountedDays">Нерассчитанные дни</param>
+    /// <returns>Рассчитанные дни</returns>
+    public async Task<double> CalcVacationDays(double countedDays, double uncountedDays)
+    {
+        var method = $"{_rootPath}/{CalculatorUrl.VacationPays}/{CalculatorUrl.CalcVacationDays}";
+        var data = new VacationDaysData { VacationDays = countedDays, UncountedDays = uncountedDays };
+        var response = await _client.PostAsync(new Uri(method), JsonContent.Create(data)).ConfigureAwait(false);
+
+        if (!response.IsSuccessStatusCode)
+            throw new Exception(response.ReasonPhrase);
+
+        await using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+        return await JsonSerializer.DeserializeAsync<double>(stream).ConfigureAwait(false);
+    }
 }

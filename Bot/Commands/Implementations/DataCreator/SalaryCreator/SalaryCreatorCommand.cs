@@ -16,7 +16,7 @@ public class SalaryCreatorCommand : BaseCommand
     public override string Key => "addsalary";
     
     /// <inheritdoc/>
-    public override string Name => "Добавить заработную плату за месяц";
+    public override string Name => "✨ Добавить заработную плату за месяц";
     
     /// <inheritdoc/>
     public SalaryCreatorCommand(BotClient telegramBot) : base(telegramBot) { }

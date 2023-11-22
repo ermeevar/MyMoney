@@ -16,4 +16,9 @@ public static partial class CalculatorUrl
     /// Путь к корнтроллеру расчета отускных начислений
     /// </summary>
     public const string VacationPayByCountDayRound = "bycountdays/round";
+    
+    /// <summary>
+    /// Рассчитать отпускные дни
+    /// </summary>
+    public const string CalcVacationDays = "calcvacationdays";
 }

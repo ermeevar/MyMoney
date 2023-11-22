@@ -41,7 +41,7 @@ public class DataCreatorController : ControllerBase
     {
         try
         {
-            await _salaryService.CreateSalary(data.Date, data.Sum);
+            await _salaryService.CreateSalary(data.Date, data.Sum, data.ChatId);
         }
         catch (Exception ex)
         {

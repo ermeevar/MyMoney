@@ -13,4 +13,5 @@ public class DataContext : DbContext
     
     // TODO перенести в маппинги
     public DbSet<Salary> Salaries { get; set; }
+    public DbSet<VacationDay> VacationDays { get; set; }
 }

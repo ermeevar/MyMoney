@@ -18,7 +18,7 @@ public class ListsCommand : BaseCommand
     public override string Key => "lists";
 
     /// <inheritdoc/>
-    public override string Name => "Посмотреть списки";
+    public override string Name => "🔍 Посмотреть списки";
     
     /// <inheritdoc/>
     public ListsCommand(BotClient telegramBot) : base(telegramBot) { }

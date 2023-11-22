@@ -22,7 +22,7 @@ public class UnknownCommand : BaseCommand
     /// <inheritdoc/>
     public override async Task ExecuteAsync(Update update)
         => await CurrentClient.SendTextMessageAsync(update.Message!.Chat.Id, 
-            "Неизвестная комманда, пожалуйста, выберите из списка комманд:");
+            "Неизвестная комманда 😔\nПожалуйста, выберите из списка комманд ️ 🌸");
 
     
 }

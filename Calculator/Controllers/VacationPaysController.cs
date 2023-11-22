@@ -74,4 +74,29 @@ public class VacationPaysController
             throw new BadHttpRequestException("Возникла ошибка при расчете отпускных начислений");
         }
     }
+
+    /// <summary>
+    /// Рассчитать отпускные дни
+    /// </summary>
+    /// <param name="data">Данные</param>
+    /// <returns>Отпускные дни</returns>
+    [HttpPost]
+    [Route(CalculatorUrl.CalcVacationDays)]
+    public double CalcVacationDaysPays([Required] VacationDaysData data)
+    {
+        try
+        {
+            return VacationPaysService.CalcVacationDaysPays(data.VacationDays, data.UncountedDays);
+        }
+        catch (ValidationException ex)
+        {
+            _logger.LogError($"Возникла ошибка при вызове метода {nameof(CalcVacationDaysPays)}: {ex.Message}");
+            throw new BadHttpRequestException(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Возникла ошибка при вызове метода {nameof(CalcVacationDaysPays)}: {ex.Message}");
+            throw new BadHttpRequestException("Возникла ошибка при расчете отпускных дней");
+        }
+    }
 }

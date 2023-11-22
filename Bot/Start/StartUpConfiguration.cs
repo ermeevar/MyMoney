@@ -71,5 +71,6 @@ public class StartUpConfiguration
         services.AddSingleton<BaseCommand, AddSalaryCommand>();
         services.AddSingleton<BaseCommand, CalcPaysCommand>();
         services.AddSingleton<BaseCommand, ImportFileCommand>();
+        services.AddSingleton<BaseCommand, VacationDaysCommand>();
     }
 }

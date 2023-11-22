@@ -21,7 +21,7 @@ public class DataCreatorCommand : BaseCommand
     public override string Key => "add";
 
     /// <inheritdoc/>
-    public override string Name => "Добавить новые данные";
+    public override string Name => "📝 Добавить новые данные";
     
     /// <inheritdoc/>
     public override async Task ExecuteAsync(Update update)

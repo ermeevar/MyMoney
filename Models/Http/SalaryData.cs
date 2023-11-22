@@ -14,4 +14,9 @@ public class SalaryData
     /// Сумма
     /// </summary>
     public double Sum { get; set; }
+    
+    /// <summary>
+    /// Идентификатор чата
+    /// </summary>
+    public long ChatId { get; set; }
 }

@@ -18,7 +18,7 @@ public class PayslipListCommand : BaseCommand
     public override string Key => "paysliplist";
 
     /// <inheritdoc/>
-    public override string Name => "Получить последние 10 расчетных листов";
+    public override string Name => "📁 Получить последние 10 расчетных листов";
     
     /// <inheritdoc/>
     public PayslipListCommand(BotClient telegramBot) : base(telegramBot) { }
@@ -28,7 +28,7 @@ public class PayslipListCommand : BaseCommand
     {
         try
         {
-            var indexes = new DirectoryInfo("VacationPays").GetFiles()
+            var indexes = new DirectoryInfo($"VacationPays/{update.Message!.Chat.Id}").GetFiles()
                 .OrderBy(x => x.Name).Take(10).ToArray();
 
             foreach (var file in indexes)

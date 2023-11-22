@@ -2,6 +2,7 @@ using Host.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Models.Entities;
 using Models.Urls.Host;
+using System.ComponentModel.DataAnnotations;
 
 namespace Host.Controllers.Api;
 
@@ -35,12 +36,12 @@ public class ListController : ControllerBase
     /// Получить список
     /// </summary>
     [HttpGet]
-    [Route(HostUrl.SalaryList)]
-    public IEnumerable<Salary> GetSalariesByLastYear()
+    [Route($"{HostUrl.SalaryList}" + "/{chatId:long}")]
+    public IEnumerable<Salary> GetSalariesByLastYear([FromRoute] long chatId)
     {
         try
         {
-            return _salaryService.GetSalariesByLastYear();
+            return _salaryService.GetSalariesByLastYear(chatId);
         }
         catch (Exception ex)
         {

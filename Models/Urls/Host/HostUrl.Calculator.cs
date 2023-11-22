@@ -11,4 +11,9 @@ public static partial class HostUrl
     /// Путь к расчету отпускных начислений
     /// </summary>
     public const string CalcVacationPays = "vacationpays";
+    
+    /// <summary>
+    /// Путь к расчету отпускных дней
+    /// </summary>
+    public const string CalcVacationDays = "vacationdays";
 }

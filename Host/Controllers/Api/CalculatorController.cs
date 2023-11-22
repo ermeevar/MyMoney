@@ -41,12 +41,30 @@ public class CalculatorController
     {
         try
         {
-            return await _salaryService.CalcVacationPays(data.Days);
+            return await _salaryService.CalcVacationPays(data.Days, data.ChatId);
         }
         catch (Exception ex)
         {
             _logger.LogError($"Возникла ошибка при вызове метода {nameof(CalcVacationPays)}: {ex.Message}");
             throw new BadHttpRequestException("Возникла ошибка при попытке расчета отпускных начислений");
+        }
+    }
+    
+    /// <summary>
+    /// Рассчитать отпускные дни
+    /// </summary>
+    [HttpGet]
+    [Route(HostUrl.CalcVacationDays + "/{chatId:long}")]
+    public async Task<double> CalcVacationDays([FromRoute] long chatId)
+    {
+        try
+        {
+            return await _salaryService.CalcVacationDays(chatId);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Возникла ошибка при вызове метода {nameof(CalcVacationDays)}: {ex.Message}");
+            throw new BadHttpRequestException("Возникла ошибка при попытке расчета отпускных дней");
         }
     }
 }

@@ -37,4 +37,11 @@ public class Salary : BaseEntity
     [Column("date_create")]
     [JsonPropertyName("CreatedDate")]
     public virtual DateTime? CreatedDate { get; set; }
+    
+    /// <summary>
+    /// Дата создания
+    /// </summary>
+    [Column("chat_id")]
+    [JsonPropertyName("ChatId")]
+    public virtual long ChatId { get; set; }
 }

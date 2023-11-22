@@ -28,4 +28,13 @@ public class VacationPaysService : IVacationPaysService
         
         return Math.Round(CalculateDefaultPaysByVacationDays(wage, countDaysOfVacation), digital);
     }
+
+    /// <inheritdoc/>
+    public double CalcVacationDaysPays(double countedDays, double uncountedDays)
+    {
+        if (countedDays < 1 || uncountedDays < 1)
+            throw new Exception($"Некорректно получены данные {countedDays}/{uncountedDays}");
+        
+        return Math.Round(countedDays + uncountedDays * VacationPayConventions.AverageVacationDayCoef, 2);
+    }
 }

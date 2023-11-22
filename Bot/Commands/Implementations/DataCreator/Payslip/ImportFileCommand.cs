@@ -34,7 +34,7 @@ public class ImportFileCommand : BaseCommand
             if (update.Message!.Document is null)
                 throw new FormatException();
             
-            var indexes = new DirectoryInfo("VacationPays").GetFiles()
+            var indexes = new DirectoryInfo($"VacationPays/{update.Message!.Chat.Id}").GetFiles()
                 .Select(x => Convert.ToInt64(Path.GetFileNameWithoutExtension(x.Name))).ToArray();
             
             var file = await CurrentClient.GetFileAsync(update.Message!.Document!.FileId);

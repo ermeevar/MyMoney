@@ -19,15 +19,20 @@ public class StartCommand : BaseCommand
     public override string Key => "/start";
 
     /// <inheritdoc/>
-    public override string Name => "Начальная страница";
+    public override string Name => "🔝 Начальная страница";
 
     /// <inheritdoc/>
     public StartCommand(BotClient telegramBot) : base(telegramBot) { }
-    
+
     /// <inheritdoc/>
     public override async Task ExecuteAsync(Update update)
-        => await CurrentClient.SendTextMessageAsync(update.Message!.Chat.Id, 
-            "Выберите интересующее действие", replyMarkup: GetButtons());
+    {
+        await CurrentClient.SendStickerAsync(update.Message!.Chat.Id,
+            sticker: InputFile.FromString("CAACAgIAAxkBAAEKzJVlXiojeq478-oZWVb0IGOi1R7dHAACbgUAAj-VzAqGOtldiLy3NTME"));
+        
+        await CurrentClient.SendTextMessageAsync(update.Message!.Chat.Id,
+            "Выберите интересующее действие 🌿", replyMarkup: GetButtons());
+    }
 
     /// <inheritdoc/>
     internal override IReplyMarkup GetButtons()

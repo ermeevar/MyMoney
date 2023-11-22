@@ -17,7 +17,7 @@ public class PayslipImportCommand : BaseCommand
     public override string Key => "payslipimport";
 
     /// <inheritdoc/>
-    public override string Name => "Загрузить расчетный лист";
+    public override string Name => "✨ Загрузить расчетный лист";
     
     /// <inheritdoc/>
     public PayslipImportCommand(BotClient telegramBot) : base(telegramBot) { }

@@ -17,7 +17,7 @@ public class VacationPaysCalculatorCommand : BaseCommand
     public override string Key => "calcvacationpays";
 
     /// <inheritdoc/>
-    public override string Name => "Рассчитать отпускные начисления";
+    public override string Name => "🦦 Рассчитать отпускные начисления";
     
     /// <inheritdoc/>
     public VacationPaysCalculatorCommand(BotClient telegramBot) : base(telegramBot) { }
